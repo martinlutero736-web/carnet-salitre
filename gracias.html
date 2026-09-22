@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro Exitoso</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family:'Segoe UI', sans-serif;
+    }
+
+    body{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      min-height:100vh;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+    }
+
+    .box{
+      background:#ffffff;
+      max-width:600px;
+      width:90%;
+      padding:40px;
+      border-radius:12px;
+      box-shadow:0 15px 40px rgba(0,0,0,0.2);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {opacity:0; transform:translateY(20px);}
+      to {opacity:1; transform:translateY(0);}
+    }
+
+    h1{
+      text-align:center;
+      color:#1f2937;
+      margin-bottom:15px;
+    }
+
+    h3{
+      text-align:center;
+      color:#203a43;
+      margin-bottom:25px;
+    }
+
+    p{
+      font-size:14px;
+      color:#444;
+      line-height:1.6;
+      margin-bottom:15px;
+    }
+
+    .importante{
+      background:#f3f4f6;
+      padding:20px;
+      border-radius:10px;
+      margin-top:15px;
+    }
+
+    .importante strong{
+      color:#0f2027;
+    }
+
+    .qr-section{
+      margin-top:30px;
+      padding:25px;
+      text-align:center;
+      background:#f9fafb;
+      border-radius:12px;
+      border:1px solid #e5e7eb;
+    }
+
+    .qr-section h4{
+      margin-bottom:10px;
+      color:#0f2027;
+    }
+
+    .qr-section img{
+      width:180px;
+      margin-top:10px;
+    }
+
+    .footer{
+      margin-top:25px;
+      text-align:center;
+      font-size:12px;
+      color:#777;
+    }
+   .btn-pago{
+  display:block;
+  width:100%;
+  margin-top:25px;
+  padding:18px;
+  text-align:center;
+  text-decoration:none;
+  border-radius:50px;
+  font-weight:600;
+  font-size:17px;
+  letter-spacing:0.5px;
+  color:white;
+  background: linear-gradient(90deg, #00c853, #00e676, #1de9b6);
+  background-size: 200% 200%;
+  box-shadow: 0 10px 25px rgba(0, 200, 83, 0.35);
+  transition: all 0.35s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Animación suave del degradado */
+.btn-pago:hover{
+  background-position: right center;
+  transform: translateY(-3px);
+  box-shadow: 0 15px 30px rgba(0, 200, 83, 0.45);
+}
+
+/* Efecto al presionar */
+.btn-pago:active{
+  transform: scale(0.97);
+}
+
+/* Brillo animado tipo pasarela */
+.btn-pago::before{
+  content:"";
+  position:absolute;
+  top:0;
+  left:-100%;
+  width:100%;
+  height:100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.4), transparent);
+  transition: all 0.6s ease;
+}
+
+.btn-pago:hover::before{
+  left:100%;
+}
+
+
+
+.error{
+  margin-top:20px;
+  padding:15px;
+  background:#fee2e2;
+  color:#b91c1c;
+  border-radius:8px;
+  text-align:center;
+  font-size:14px;
+}
+
+.pagoQR{
+margin-top:25px;
+text-align:center;
+}
+
+.qr{
+width:220px;
+margin-top:15px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.2);
+}
+
+.btn-descargar{
+display:inline-block;
+margin-top:15px;
+background:#16a34a;
+color:white;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+font-weight:600;
+}
+
+.btn-descargar:hover{
+background:#15803d;
+}
+  </style>
+</head>
+<body>
+
+  <div class="box">
+
+    <div class="success">✔</div>
+
+    <h1>¡Registro Exitoso!</h1>
+    <p id="mostrarRef" style="margin-top:10px; font-weight:600;"></p>
+
+    <h3>Hemos recibido tu información correctamente.</h3>
+
+    <p>
+      Nos alegra que seas parte de nuestro equipo  🙌  
+      Guarda este código y envía la captura del registro al asesor que te está atendiendo.
+    </p>
+
+    <!-- CARNET DIGITAL -->
+    <div class="carnet">
+
+      <h3>🎟️ Carnet Provisional</h3>
+
+      <p><strong>Evento:</strong> FESTIVAL DEL TERROR</p>
+      <p><strong>Estado:</strong> Pendiente de activación</p>
+      <p id="codigoCarnet"></p>
+
+    </div>
+
+
+    <div class="importante">
+
+      <p><strong>🔒 Activación de Código:</strong><br>
+      No olvides realizar el pago de la carnetización por valor de <strong>$15.000</strong>.  
+      Si no se realiza el pago, el código NO será activado y no se permitirá el ingreso al evento.
+      </p>
+
+      <p><strong>📲 Envío Obligatorio:</strong><br>
+      Debes enviar la captura del pago al asesor correspondiente para validar y activar tu ingreso.
+      </p>
+
+      <p><strong>👕 Vestimenta:</strong><br>
+      Presentarse con pantalón negro.  
+      El resto de la dotación será entregado en las instalaciones del parque.
+      </p>
+
+      <p><strong>📋 Normas Generales:</strong><br>
+      • Presentarse puntual en el horario indicado.<br>
+      • Prohibido tomar fotos o videos a los artistas.<br>
+      • Uso limitado del celular durante la operación.<br>
+      • Cuidar los equipos o artículos electrónicos asignados.<br>
+      • Seguir instrucciones del coordinador en todo momento.
+      </p>
+
+      <p><strong>⚠️ Compromiso:</strong><br>
+      El incumplimiento de normas o la falta de pago ocasionará la cancelación inmediata del cupo.
+      </p>
+
+    </div>
+
+
+    <!-- PAGO QR -->
+
+    <div class="pagoQR">
+
+      <h3>📲 Realizar pago</h3>
+
+      <p>
+      Escanea el siguiente código QR para realizar el pago de la carnetización
+      <strong>$18.000</strong>
+      </p>
+
+      <img src="qr-pago.png" id="qrPago" class="qr">
+
+      <br>
+
+      <a href="qr-pago.png" download class="btn-descargar">
+      ⬇ Descargar QR para pagar
+      </a>
+
+    </div>
+
+
+    <!-- TEMPORIZADOR -->
+
+    <div class="timerBox">
+
+      ⏳ Activación del código en:
+
+      <div id="timer">15:00</div>
+
+    </div>
+
+
+    <p style="margin-top:10px; font-size:13px; text-align:center; color:#b91c1c;">
+⚠️ El código se desactiva si no se realiza el pago en las próximas horas.
+</p>
+
+<p style="margin-top:15px; font-size:13px; text-align:center; color:#666;">
+🔒 Pago 100% seguro procesado por QR empresa.<br>
+No almacenamos datos bancarios.
+</p>
+
+<div id="errorBox"></div>
+
+
+<div class="footer">
+© 2026 Sistema Institucional - Todos los derechos reservados
+</div>
+
+</div>
+
+
+<script>
+
+const params = new URLSearchParams(window.location.search);
+const ref = params.get("ref");
+
+if (ref) {
+
+document.getElementById("mostrarRef").innerText = "Código asignado: " + ref;
+
+document.getElementById("codigoCarnet").innerText = "Código: " + ref;
+
+}
+
+
+// TEMPORIZADOR
+
+let tiempo = 900;
+
+const contador = setInterval(() => {
+
+tiempo--;
+
+let min = Math.floor(tiempo/60);
+let seg = tiempo % 60;
+
+if(seg < 10) seg = "0"+seg;
+
+document.getElementById("timer").innerText = min + ":" + seg;
+
+if(tiempo <= 0){
+clearInterval(contador);
+document.getElementById("timer").innerText = "Tiempo expirado";
+}
+
+},1000);
+
+</script>
+<style>
+  .success{
+font-size:60px;
+color:#22c55e;
+text-align:center;
+margin-bottom:10px;
+}
+
+.carnet{
+background:#111;
+color:#fff;
+padding:20px;
+border-radius:10px;
+margin-top:20px;
+text-align:center;
+}
+
+.timerBox{
+margin-top:25px;
+text-align:center;
+font-weight:600;
+}
+
+#timer{
+font-size:28px;
+color:#dc2626;
+margin-top:5px;
+}
+
+.qr{
+width:220px;
+margin-top:10px;
+border-radius:10px;
+}
+
+.btn-descargar{
+display:inline-block;
+margin-top:15px;
+background:#16a34a;
+color:#fff;
+padding:10px 18px;
+border-radius:8px;
+text-decoration:none;
+}
+</style>
+</body>

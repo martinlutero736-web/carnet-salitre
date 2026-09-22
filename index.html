@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Sistema Corporativo de Carnetización</title>
+  <link rel="stylesheet" href="estilo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+</head>
+<body>
+
+  <div class="card">
+
+    <div class="header">
+      <img src="logo.png" class="logo">
+      <h1>Sistema Corporativo de Carnetización</h1>
+      <p>Diligencie la información de manera correcta para continuar el proceso.</p>
+    </div>
+
+    <div class="divider"></div>
+
+    <form id="formCarnet">
+
+      <div class="form-group">
+        <label>Código asignado</label>
+        <input type="number" id="codigo" required>
+      </div>
+
+      <div class="form-group">
+        <label>Nombre de contacto de emergencia</label>
+        <input type="text" id="contacto_emergencia" required>
+      </div>
+
+      <div class="form-group">
+        <label>Número de contacto</label>
+        <input type="tel" id="numero_contacto_emergencia" required>
+      </div>
+
+      <div class="form-group">
+        <label>Discapacidad</label>
+        <select id="discapacidad" required>
+          <option value="">Seleccione</option>
+          <option>No</option>
+          <option>Física</option>
+          <option>Visual</option>
+          <option>Auditiva</option>
+          <option>Otra</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Tipo de sangre (RH)</label>
+        <select id="rh" required>
+          <option value="">Seleccione</option>
+          <option>O+</option>
+          <option>O-</option>
+          <option>A+</option>
+          <option>A-</option>
+          <option>B+</option>
+          <option>B-</option>
+          <option>AB+</option>
+          <option>AB-</option>
+        </select>
+      </div>
+
+      <button type="submit" id="btnEnviar">Enviar Información</button>
+      <div class="status" id="status"></div>
+
+    </form>
+    <div class="footer">
+      © 2026 Sistema Institucional - Todos los derechos reservados
+    </div>
+
+  </div>
+
+<script type="module">
+
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.9.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD4FD7MLD9AhHoX20v1t98zbklIiie4riA",
+  authDomain: "carnetizacion-2.firebaseapp.com",
+  projectId: "carnetizacion-2",
+  storageBucket: "carnetizacion-2.firebasestorage.app",
+  messagingSenderId: "939971338687",
+  appId: "1:939971338687:web:be2d29242ef4fa824d410a"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+
+  const form = document.getElementById("formCarnet");
+  const status = document.getElementById("status");
+  const btn = document.getElementById("btnEnviar");
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    btn.classList.add("loading");
+    btn.innerText = "Procesando...";
+    btn.disabled = true;
+
+    try {
+
+      // 🔐 Generar ID único de pago
+      const paymentId = "CARNET-" + Date.now();
+
+      // 💾 Guardar en Firestore
+      await addDoc(collection(db, "registros"), {
+        codigo: Number(document.getElementById("codigo").value),
+        contacto_emergencia: document.getElementById("contacto_emergencia").value,
+        numero_contacto_emergencia: document.getElementById("numero_contacto_emergencia").value,
+        discapacidad: document.getElementById("discapacidad").value,
+        rh: document.getElementById("rh").value,
+        paymentId: paymentId,
+        pagoConfirmado: false,
+        fecha: serverTimestamp()
+      });
+
+      // 🔄 Redirigir automáticamente a Bold
+      window.location.href = `gracias.html?ref=${paymentId}`;
+
+
+
+    } catch (error) {
+
+      console.error(error);
+      status.style.color = "red";
+      status.innerText = "Error al enviar la información.";
+      btn.classList.remove("loading");
+      btn.innerText = "Enviar Información";
+      btn.disabled = false;
+
+    }
+
+  });
+
+</script>
+
+</body>
+</html>
+ 
